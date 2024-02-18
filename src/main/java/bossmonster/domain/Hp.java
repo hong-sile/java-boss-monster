@@ -21,4 +21,8 @@ public class Hp {
   public int getValue() {
     return value;
   }
+
+  public void decrease(final int value) {
+    this.value -= value;
+  }
 }
