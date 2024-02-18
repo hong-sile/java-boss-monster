@@ -6,8 +6,15 @@ public class Hp {
   private int remain;
 
   public Hp(final int max) {
+    validateMax(max);
     this.max = max;
     this.remain = max;
+  }
+
+  private void validateMax(final int max) {
+    if (max <= 0) {
+      throw new IllegalArgumentException("최대 체력은 0이하일 수 없습니다.");
+    }
   }
 
   public boolean isDead() {
