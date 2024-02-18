@@ -24,7 +24,7 @@ public class Player extends Character {
     return mp.getValue();
   }
 
-  public String getNameValue() {
+  public String getName() {
     return name.getValue();
   }
 }

@@ -29,7 +29,7 @@ class PlayerTest {
               .isEqualTo(validMaxHpValue),
           () -> Assertions.assertThat(player.getRemainMp())
               .isEqualTo(validMaxMpValue),
-          () -> Assertions.assertThat(player.getNameValue())
+          () -> Assertions.assertThat(player.getName())
               .isEqualTo(validPlayerName.getValue())
       );
     }
