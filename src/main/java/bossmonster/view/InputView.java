@@ -32,6 +32,7 @@ public class InputView {
   }
 
   public PlayerStatusRequest readPlayerHpAndMp() {
+    outputView.printReadPlayerHpAndMp();
     final String input = scanner.nextLine().trim();
     final String[] splitInput = input.split(DELIMITER);
 
