@@ -6,6 +6,7 @@ import bossmonster.dto.GameStatusResponse;
 
 public class OutputView {
 
+  private static final OutputView INSTANCE = new OutputView();
   private static final String ERROR_MESSAGE_FORMAT = "[ERROR] ";
   private static final String DOUBLE_LINE = "============================";
   private static final String SINGLE_LINE = "____________________________";
@@ -30,6 +31,12 @@ public class OutputView {
   private static final String BOSS_ATTACK_MESSAGE = "보스가 공격 했습니다.";
   private static final String GAME_END_MESSAGE_FORMAT = "%s 님이 %d번의 전투 끝에 보스 몬스터를 잡았습니다.";
 
+  private OutputView() {
+  }
+
+  public static OutputView getInstance() {
+    return INSTANCE;
+  }
 
   public void printExceptionMessage(final IllegalArgumentException exception) {
     System.out.println(ERROR_MESSAGE_FORMAT + exception.getMessage());

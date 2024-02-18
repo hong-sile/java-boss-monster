@@ -13,9 +13,11 @@ public class InputView {
   public static final int MAX_MP_INDEX = 1;
   public static final int VALID_STATUS_INPUT_SIZE = 2;
 
+  private final OutputView outputView = OutputView.getInstance();
   private final Scanner scanner = new Scanner(System.in);
 
   public int readBossHp() {
+    outputView.printReadBossHpMessage();
     final String input = scanner.nextLine().trim();
     try {
       return Integer.parseInt(input);
@@ -25,6 +27,7 @@ public class InputView {
   }
 
   public String readPlayerName() {
+    outputView.printReadPlayerName();
     return scanner.nextLine().trim();
   }
 
