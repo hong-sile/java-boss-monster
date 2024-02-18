@@ -17,18 +17,18 @@ class PlayerTest {
     @Test
     void 정상적으로_생성된다() {
       //given
-      final Hp validMaxHpValue = new Hp(100);
-      final Mp validMaxMpValue = new Mp(50);
+      final int validMaxHpValue = 100;
+      final int validMaxMpValue = 50;
 
       //when
       final Player player = new Player(validPlayerName, validMaxHpValue, validMaxMpValue);
 
       //then
       assertAll(
-          () -> Assertions.assertThat(player.getHpValue())
-              .isEqualTo(100),
-          () -> Assertions.assertThat(player.getMpValue())
-              .isEqualTo(50),
+          () -> Assertions.assertThat(player.getRemainHp())
+              .isEqualTo(validMaxHpValue),
+          () -> Assertions.assertThat(player.getRemainMp())
+              .isEqualTo(validMaxMpValue),
           () -> Assertions.assertThat(player.getNameValue())
               .isEqualTo(validPlayerName.getValue())
       );
@@ -37,8 +37,8 @@ class PlayerTest {
     @Test
     void 체력과_마나의_합이_200초과면_예외가_발생한다() {
       //given
-      final Hp validMaxHpValue = new Hp(100);
-      final Mp validMaxMpValue = new Mp(101);
+      final int validMaxHpValue = 100;
+      final int validMaxMpValue = 101;
 
       //when
       assertThatThrownBy(

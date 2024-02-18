@@ -18,7 +18,7 @@ class BossTest {
       //when
       final Boss boss = new Boss(validMaxHpValue);
       //then
-      assertThat(boss.getHpValue())
+      assertThat(boss.getRemainHp())
           .isEqualTo(validMaxHpValue);
     }
 

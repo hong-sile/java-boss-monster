@@ -8,7 +8,15 @@ public abstract class Character {
     this.hp = hp;
   }
 
-  public int getHpValue() {
+  public int getRemainHp() {
     return hp.getValue();
+  }
+
+  public boolean isDead() {
+    return hp.isDead();
+  }
+
+  public void damaged(final int damage) {
+    hp.decrease(damage);
   }
 }
