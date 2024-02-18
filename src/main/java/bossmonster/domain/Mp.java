@@ -14,7 +14,7 @@ public class Mp {
     return max;
   }
 
-  public int getValue() {
+  public int getRemain() {
     return value;
   }
 }

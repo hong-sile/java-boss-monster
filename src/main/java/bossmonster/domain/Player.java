@@ -21,7 +21,11 @@ public class Player extends Character {
   }
 
   public int getRemainMp() {
-    return mp.getValue();
+    return mp.getRemain();
+  }
+
+  public int getMaxMp(){
+    return mp.getMax();
   }
 
   public String getName() {

@@ -8,6 +8,10 @@ public abstract class Character {
     this.hp = hp;
   }
 
+  public int getMaxHp() {
+    return hp.getMax();
+  }
+
   public int getRemainHp() {
     return hp.getRemain();
   }
