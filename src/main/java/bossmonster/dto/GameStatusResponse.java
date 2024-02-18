@@ -32,4 +32,32 @@ public class GameStatusResponse {
         player.getRemainHp(), player.getMaxMp(), player.getRemainMp()
     );
   }
+
+  public int getMaxBossHp() {
+    return maxBossHp;
+  }
+
+  public int getBossHp() {
+    return bossHp;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public int getMaxPlayerHp() {
+    return maxPlayerHp;
+  }
+
+  public int getPlayerHp() {
+    return playerHp;
+  }
+
+  public int getMaxPlayerMp() {
+    return maxPlayerMp;
+  }
+
+  public int getPlayerMp() {
+    return playerMp;
+  }
 }

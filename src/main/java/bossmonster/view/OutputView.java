@@ -65,7 +65,7 @@ public class OutputView {
 
   public void printBossWinGameMessage(final GameStatusResponse statusResponse) {
     printBossImage(statusResponse, BossImage.WINNING_BOSS_IMAGE);
-    System.out.println(String.format(BOSS_WIN_MESSAGE_FORMAT, statusResponse.userName()));
+    System.out.println(String.format(BOSS_WIN_MESSAGE_FORMAT, statusResponse.getUserName()));
   }
 
   public void printGameProgressMessage(
@@ -94,18 +94,18 @@ public class OutputView {
   private void printBossImage(final GameStatusResponse statusResponse, final String bossImage) {
     System.out.println(DOUBLE_LINE);
     System.out.println(
-        String.format(BOSS_HP_FORMAT, statusResponse.maxBossHp(), statusResponse.bossHp())
+        String.format(BOSS_HP_FORMAT, statusResponse.getMaxBossHp(), statusResponse.getBossHp())
     );
     System.out.println(SINGLE_LINE);
     System.out.println(bossImage);
     System.out.println(SINGLE_LINE + lineSeparator());
     System.out.println(
         String.format(USER_STATUS_FORMAT,
-            statusResponse.userName(),
-            statusResponse.maxPlayerHp(),
-            statusResponse.playerHp(),
-            statusResponse.maxPlayerMp(),
-            statusResponse.playerMp()
+            statusResponse.getUserName(),
+            statusResponse.getMaxPlayerHp(),
+            statusResponse.getPlayerHp(),
+            statusResponse.getMaxPlayerMp(),
+            statusResponse.getPlayerMp()
         )
     );
     System.out.println(DOUBLE_LINE);
