@@ -7,4 +7,8 @@ public abstract class Character {
   public Character(final Hp hp) {
     this.hp = hp;
   }
+
+  public int getHpValue() {
+    return hp.getValue();
+  }
 }
