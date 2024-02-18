@@ -3,26 +3,26 @@ package bossmonster.domain;
 public class Hp {
 
   private final int max;
-  private int value;
+  private int remain;
 
   public Hp(final int max) {
     this.max = max;
-    this.value = max;
+    this.remain = max;
   }
 
   public boolean isDead() {
-    return max <= value;
+    return remain <= 0;
   }
 
   public int getMax() {
     return max;
   }
 
-  public int getValue() {
-    return value;
+  public int getRemain() {
+    return remain;
   }
 
   public void decrease(final int value) {
-    this.value -= value;
+    this.remain -= value;
   }
 }

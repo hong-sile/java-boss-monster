@@ -9,7 +9,7 @@ public abstract class Character {
   }
 
   public int getRemainHp() {
-    return hp.getValue();
+    return hp.getRemain();
   }
 
   public boolean isDead() {
