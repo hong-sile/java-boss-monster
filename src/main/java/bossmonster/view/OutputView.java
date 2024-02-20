@@ -16,7 +16,7 @@ public class OutputView {
   private static final String READ_ATTACK_TYPE_MESSAGE
       = "어떤 공격을 하시겠습니까?" + lineSeparator() +
       "1. 물리 공격" + lineSeparator() +
-      "2. 마법 공격" + lineSeparator();
+      "2. 마법 공격";
   private static final String INIT_GAME_MESSAGE = "보스 레이드를 시작합니다!" + lineSeparator();
   private static final String BOSS_HP_FORMAT = "BOSS HP [%d/%d]";
   private static final String USER_STATUS_FORMAT = "%s HP [%d/%d] MP [%d/%d]";
@@ -29,7 +29,8 @@ public class OutputView {
   private static final String MAGIC_ATTACK_MESSAGE = "마법 공격을 했습니다.";
   private static final String DAMAGE_FORMAT = " (입힌 데미지: %d)";
   private static final String BOSS_ATTACK_MESSAGE = "보스가 공격 했습니다.";
-  private static final String GAME_END_MESSAGE_FORMAT = "%s 님이 %d번의 전투 끝에 보스 몬스터를 잡았습니다.";
+  private static final String GAME_END_MESSAGE_FORMAT =
+      lineSeparator() + "%s 님이 %d번의 전투 끝에 보스 몬스터를 잡았습니다.";
 
   private OutputView() {
   }
