@@ -1,9 +1,15 @@
 package bossmonster.controller;
 
+import static bossmonster.domain.GameStatus.PLAYER_LOSE;
+import static bossmonster.domain.GameStatus.PLAYER_WIN;
+
+import bossmonster.domain.AttackType;
 import bossmonster.domain.Boss;
 import bossmonster.domain.Game;
+import bossmonster.domain.GameStatus;
 import bossmonster.domain.Player;
 import bossmonster.domain.PlayerName;
+import bossmonster.domain.RandomBossDamageGenerator;
 import bossmonster.domain.Round;
 import bossmonster.dto.GameStatusResponse;
 import bossmonster.view.InputView;
@@ -24,12 +30,39 @@ public class GameController {
 
   public void run() {
     final Game game = initGame();
-    startGame(game);
+    final GameStatus gameStatus = playGame(game);
+    printResult(gameStatus);
   }
 
-  private void startGame(final Game game) {
+  private void printResult(final GameStatus gameStatus) {
 
+  }
+
+  private GameStatus playGame(final Game game) {
+    playerTurn(game);
+    if (game.isBossDead()) {
+      return PLAYER_WIN;
+    }
+
+    game.attackPlayer();
+    if (game.isPlayerDead()) {
+      return PLAYER_LOSE;
+    }
+
+    printGameProgress();
     round.playRound();
+    return playGame(game);
+  }
+
+  private void playerTurn(final Game game) {
+    final AttackType attackType
+        = repeatUntilInitialValid(AttackType::from, inputView::readAttackType);
+
+    game.attackBoss(attackType);
+  }
+
+  private void printGameProgress() {
+
   }
 
   private Game initGame() {
@@ -45,7 +78,7 @@ public class GameController {
     final GameStatusResponse statusResponse = GameStatusResponse.of(boss, player);
     outputView.printInitGameMessage(statusResponse);
 
-    return new Game(player, boss);
+    return new Game(player, boss, new RandomBossDamageGenerator());
   }
 
   private <T, R> R repeatUntilInitialValid(

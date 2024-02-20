@@ -47,6 +47,7 @@ public class InputView {
   }
 
   public int readAttackType() {
+    outputView.printReadAttackType();
     final String input = scanner.nextLine().trim();
     try {
       return Integer.parseInt(input);
