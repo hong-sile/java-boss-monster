@@ -1,12 +1,12 @@
 package bossmonster.controller;
 
-import static bossmonster.domain.GameStatus.PLAYER_LOSE;
-import static bossmonster.domain.GameStatus.PLAYER_WIN;
+import static bossmonster.domain.GameResult.PLAYER_LOSE;
+import static bossmonster.domain.GameResult.PLAYER_WIN;
 
 import bossmonster.domain.AttackType;
 import bossmonster.domain.Boss;
 import bossmonster.domain.Game;
-import bossmonster.domain.GameStatus;
+import bossmonster.domain.GameResult;
 import bossmonster.domain.Player;
 import bossmonster.domain.PlayerName;
 import bossmonster.domain.RandomBossDamageGenerator;
@@ -30,47 +30,60 @@ public class GameController {
 
   public void run() {
     final Game game = initGame();
-    final GameStatus gameStatus = playGame(game);
-    printResult(gameStatus);
+    final GameResult gameResult = playGame(game);
+    printResult(gameResult, game);
   }
 
-  private void printResult(final GameStatus gameStatus) {
-
+  private void printResult(final GameResult gameResult, final Game game) {
+    if (gameResult == PLAYER_LOSE) {
+      final GameStatusResponse gameStatusResponse =
+          GameStatusResponse.of(game.getBoss(), game.getPlayer());
+      outputView.printPlayerLoseMessage(gameStatusResponse);
+    }
+    if (gameResult == PLAYER_WIN) {
+      outputView.printPlayerWinMessage(round.getValue(), game.getPlayer().getName());
+    }
   }
 
-  private GameStatus playGame(final Game game) {
+  private GameResult playGame(final Game game) {
     playerTurn(game);
     if (game.isBossDead()) {
       return PLAYER_WIN;
     }
 
-    game.attackPlayer();
+    bossTurn(game);
     if (game.isPlayerDead()) {
       return PLAYER_LOSE;
     }
 
-    printGameProgress();
+    printGameProgress(game);
     round.playRound();
     return playGame(game);
   }
 
-  private void playerTurn(final Game game) {
-    final AttackType attackType
-        = repeatUntilInitialValid(AttackType::from, inputView::readAttackType);
-
-    game.attackBoss(attackType);
+  private void bossTurn(final Game game) {
+    final int damage = game.attackPlayer();
+    outputView.printBossAttackMessage(damage);
   }
 
-  private void printGameProgress() {
+  private void playerTurn(final Game game) {
+    final AttackType attackType
+        = repeatUntilValid(AttackType::from, inputView::readAttackType);
+    final int damage = game.attackBoss(attackType);
+    outputView.printPlayerAttackMessage(attackType.getType(), damage);
+  }
 
+  private void printGameProgress(final Game game) {
+    final GameStatusResponse status = GameStatusResponse.of(game.getBoss(), game.getPlayer());
+    outputView.printGameProgressMessage(status);
   }
 
   private Game initGame() {
-    final Boss boss = repeatUntilInitialValid(Boss::new, inputView::readBossHp);
+    final Boss boss = repeatUntilValid(Boss::new, inputView::readBossHp);
 
-    final PlayerName name = repeatUntilInitialValid(PlayerName::new, inputView::readPlayerName);
+    final PlayerName name = repeatUntilValid(PlayerName::new, inputView::readPlayerName);
 
-    final Player player = repeatUntilInitialValid(
+    final Player player = repeatUntilValid(
         request -> new Player(name, request.maxHp(), request.maxMp()),
         inputView::readPlayerHpAndMp
     );
@@ -81,14 +94,14 @@ public class GameController {
     return new Game(player, boss, new RandomBossDamageGenerator());
   }
 
-  private <T, R> R repeatUntilInitialValid(
+  private <T, R> R repeatUntilValid(
       final Function<T, R> function, final Supplier<T> reader
   ) {
     try {
       return function.apply(reader.get());
     } catch (final IllegalArgumentException exception) {
       outputView.printExceptionMessage(exception);
-      return repeatUntilInitialValid(function, reader);
+      return repeatUntilValid(function, reader);
     }
   }
 }

@@ -1,6 +1,6 @@
 package bossmonster.domain;
 
-public enum GameStatus {
+public enum GameResult {
 
   PLAYER_WIN,
   PLAYER_LOSE

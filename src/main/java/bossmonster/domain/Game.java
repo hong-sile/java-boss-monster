@@ -24,36 +24,24 @@ public class Game {
     return player.isDead();
   }
 
-  public void attackBoss(final AttackType attackType) {
+  public int attackBoss(final AttackType attackType) {
     player.changeMp(attackType);
-    boss.damaged(attackType.getDamage());
+    final int damage = attackType.getDamage();
+    boss.damaged(damage);
+    return damage;
   }
 
-  public void attackPlayer() {
-    player.damaged(bossDamageGenerator.getBossDamage());
+  public int attackPlayer() {
+    final int damage = bossDamageGenerator.getBossDamage();
+    player.damaged(damage);
+    return damage;
   }
 
-  public int playerRemainMp() {
-    return player.getRemainMp();
+  public Player getPlayer() {
+    return player;
   }
 
-  public int playerRemainHp() {
-    return player.getRemainHp();
-  }
-
-  public int bossRemainHp() {
-    return boss.getRemainHp();
-  }
-
-  public int playerMaxMp() {
-    return player.getMaxMp();
-  }
-
-  public int playerMaxHp() {
-    return player.getMaxHp();
-  }
-
-  public int bossMaxHp() {
-    return boss.getMaxHp();
+  public Boss getBoss() {
+    return boss;
   }
 }

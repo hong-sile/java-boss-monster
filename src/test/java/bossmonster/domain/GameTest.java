@@ -32,21 +32,21 @@ class GameTest {
       game.attackBoss(PHYSICAL_ATTACK);
 
       assertAll(
-          () -> assertThat(game.playerRemainMp())
+          () -> assertThat(game.getPlayer().getRemainMp())
               .isEqualTo(100),
-          () -> assertThat(game.bossRemainHp())
+          () -> assertThat(game.getBoss().getRemainHp())
               .isEqualTo(190)
       );
     }
 
     @Test
-    void 마법공격이면_보스_체력이_20이_감소하고_플레이어마나가_10감소한다() {
+    void 마법공격이면_보스_체력이_20이_감소하고_플레이어마나가_30감소한다() {
       game.attackBoss(MAGIC_ATTACK);
 
       assertAll(
-          () -> assertThat(game.playerRemainMp())
+          () -> assertThat(game.getPlayer().getRemainMp())
               .isEqualTo(70),
-          () -> assertThat(game.bossRemainHp())
+          () -> assertThat(game.getBoss().getRemainHp())
               .isEqualTo(180)
       );
     }
@@ -56,7 +56,7 @@ class GameTest {
   void 보스가_공격하면_플레이어는_데미지를_입는다() {
     game.attackPlayer();
 
-    assertThat(game.playerRemainHp())
+    assertThat(game.getPlayer().getRemainHp())
         .isEqualTo(80);
   }
 }

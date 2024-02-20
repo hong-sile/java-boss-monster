@@ -24,6 +24,10 @@ public enum AttackType {
         .orElseThrow(() -> new IllegalArgumentException("1 또는 2를 입력해주세요"));
   }
 
+  public int getType() {
+    return type;
+  }
+
   public int getDamage() {
     return damage;
   }
