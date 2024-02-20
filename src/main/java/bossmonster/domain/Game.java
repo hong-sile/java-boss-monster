@@ -2,14 +2,14 @@ package bossmonster.domain;
 
 public class Game {
 
-  private final NumberGenerator numberGenerator;
+  private final BossDamageGenerator bossDamageGenerator;
   private final Player player;
   private final Boss boss;
 
-  public Game(final Player player, final Boss boss, final NumberGenerator numberGenerator) {
+  public Game(final Player player, final Boss boss, final BossDamageGenerator bossDamageGenerator) {
     this.player = player;
     this.boss = boss;
-    this.numberGenerator = numberGenerator;
+    this.bossDamageGenerator = bossDamageGenerator;
   }
 
   public boolean canContinue() {
@@ -30,7 +30,7 @@ public class Game {
   }
 
   public void attackPlayer() {
-
+    player.damaged(bossDamageGenerator.getBossDamage());
   }
 
   public int playerRemainMp() {

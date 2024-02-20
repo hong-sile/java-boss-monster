@@ -7,7 +7,7 @@ import static bossmonster.fixture.PlayerFixture.hp100_mp100인_플레이어;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import bossmonster.fake.DefineNumberGenerator;
+import bossmonster.fake.DefineBossDamageGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,12 +15,13 @@ import org.junit.jupiter.api.Test;
 class GameTest {
 
   public static final int GENERATED_NUMBER = 20;
-  private final NumberGenerator numberGenerator = new DefineNumberGenerator(GENERATED_NUMBER);
+  private final BossDamageGenerator bossDamageGenerator = new DefineBossDamageGenerator(
+      GENERATED_NUMBER);
   private Game game;
 
   @BeforeEach
   void setUp() {
-    game = new Game(hp100_mp100인_플레이어(), hp200인_보스(), numberGenerator);
+    game = new Game(hp100_mp100인_플레이어(), hp200인_보스(), bossDamageGenerator);
   }
 
   @Nested
@@ -49,5 +50,13 @@ class GameTest {
               .isEqualTo(180)
       );
     }
+  }
+
+  @Test
+  void 보스가_공격하면_플레이어는_데미지를_입는다() {
+    game.attackPlayer();
+
+    assertThat(game.playerRemainHp())
+        .isEqualTo(80);
   }
 }
