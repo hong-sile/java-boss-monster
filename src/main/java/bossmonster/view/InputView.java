@@ -40,10 +40,13 @@ public class InputView {
       throw new IllegalArgumentException(PLAYER_STATUS_INPUT_SIZE_IS_NOT_VALID);
     }
 
-    final int maxHp = Integer.parseInt(splitInput[MAX_HP_INDEX].trim());
-    final int maxMp = Integer.parseInt(splitInput[MAX_MP_INDEX].trim());
-
-    return new PlayerStatusRequest(maxHp, maxMp);
+    try {
+      final int maxHp = Integer.parseInt(splitInput[MAX_HP_INDEX].trim());
+      final int maxMp = Integer.parseInt(splitInput[MAX_MP_INDEX].trim());
+      return new PlayerStatusRequest(maxHp, maxMp);
+    } catch (final NumberFormatException e) {
+      throw new IllegalArgumentException(INPUT_IS_NOT_NUMERIC);
+    }
   }
 
   public int readAttackType() {

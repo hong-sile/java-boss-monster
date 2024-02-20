@@ -14,7 +14,7 @@ public class BossImage {
       = "   ^-^" + lineSeparator() +
       " / x x \\" + lineSeparator() +
       "(   \"\\  )" + lineSeparator() +
-      "\\  ^  /" + lineSeparator() +
+      " \\  ^  /" + lineSeparator() +
       "  - ^ -";
   ;
   public static final String WINNING_BOSS_IMAGE
