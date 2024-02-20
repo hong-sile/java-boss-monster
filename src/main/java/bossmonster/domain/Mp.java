@@ -24,4 +24,14 @@ public class Mp {
   public int getRemain() {
     return value;
   }
+
+  public void change(final int mpChangeValue) {
+    value += mpChangeValue;
+    if (value < 0) {
+      throw new IllegalArgumentException("mp가 모자랍니다.");
+    }
+    if (value > max) {
+      value = max;
+    }
+  }
 }

@@ -24,11 +24,15 @@ public class Player extends Character {
     return mp.getRemain();
   }
 
-  public int getMaxMp(){
+  public int getMaxMp() {
     return mp.getMax();
   }
 
   public String getName() {
     return name.getValue();
+  }
+
+  public void changeMp(final AttackType attackType) {
+    mp.change(attackType.getMpChangeValue());
   }
 }

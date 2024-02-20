@@ -1,9 +1,10 @@
 package bossmonster.domain;
 
+import static bossmonster.domain.AttackType.MAGIC_ATTACK;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -25,11 +26,11 @@ class PlayerTest {
 
       //then
       assertAll(
-          () -> Assertions.assertThat(player.getRemainHp())
+          () -> assertThat(player.getRemainHp())
               .isEqualTo(validMaxHpValue),
-          () -> Assertions.assertThat(player.getRemainMp())
+          () -> assertThat(player.getRemainMp())
               .isEqualTo(validMaxMpValue),
-          () -> Assertions.assertThat(player.getName())
+          () -> assertThat(player.getName())
               .isEqualTo(validPlayerName.getValue())
       );
     }
@@ -45,5 +46,17 @@ class PlayerTest {
           () -> new Player(validPlayerName, validMaxHpValue, validMaxMpValue)
       ).isInstanceOf(IllegalArgumentException.class);
     }
+  }
+
+  @Test
+  void 공격_타입에_따라_mp가_변화할_수_있다() {
+    final int maxMp = 100;
+    final int changeValue = MAGIC_ATTACK.getMpChangeValue();
+    final Player player = new Player(new PlayerName("홍혁준"), 100, maxMp);
+
+    player.changeMp(MAGIC_ATTACK);
+
+    assertThat(player.getRemainMp())
+        .isEqualTo(maxMp + changeValue);
   }
 }
