@@ -14,6 +14,7 @@ import bossmonster.domain.Round;
 import bossmonster.dto.GameStatusResponse;
 import bossmonster.view.InputView;
 import bossmonster.view.OutputView;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -46,7 +47,7 @@ public class GameController {
   }
 
   private GameResult playGame(final Game game) {
-    playerTurn(game);
+    repeatUntilValid(game, this::playerTurn);
     if (game.isBossDead()) {
       return PLAYER_WIN;
     }
@@ -94,14 +95,21 @@ public class GameController {
     return new Game(player, boss, new RandomBossDamageGenerator());
   }
 
-  private <T, R> R repeatUntilValid(
-      final Function<T, R> function, final Supplier<T> reader
-  ) {
+  private <T, R> R repeatUntilValid(final Function<T, R> function, final Supplier<T> reader) {
     try {
       return function.apply(reader.get());
     } catch (final IllegalArgumentException exception) {
       outputView.printExceptionMessage(exception);
       return repeatUntilValid(function, reader);
+    }
+  }
+
+  private <T> void repeatUntilValid(final T element, final Consumer<T> consumer) {
+    try {
+      consumer.accept(element);
+    } catch (final IllegalArgumentException exception) {
+      outputView.printExceptionMessage(exception);
+      repeatUntilValid(element, consumer);
     }
   }
 }

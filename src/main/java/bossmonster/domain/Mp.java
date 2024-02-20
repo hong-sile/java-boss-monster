@@ -28,6 +28,7 @@ public class Mp {
   public void change(final int mpChangeValue) {
     value += mpChangeValue;
     if (value < 0) {
+      value -= mpChangeValue;
       throw new IllegalArgumentException("mp가 모자랍니다.");
     }
     if (value > max) {
